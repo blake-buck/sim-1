@@ -1,25 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
+
+import Dashboard from'./Component/Dashboard/Dashboard.js';
+import Product from './Component/Product/Product.js';
+import Form from './Component/Form/Form.js';
+import Header from './Component/Header/Header.js';
+
 import './App.css';
 
 class App extends Component {
+	
+	constructor(props){
+		super(props);
+		this.state={
+			inventoryList:[],
+			currentProduct: null
+		}
+		this.componentDidMount = this.componentDidMount.bind(this);
+		this.setCurrentProduct = this.setCurrentProduct.bind(this);
+	}
+	componentDidMount(){
+		axios.get('/api/inventory').then( (res) =>{
+			this.setState({inventoryList:res.data});
+		})
+	}
+	
+	setCurrentProduct(param){
+		this.setState({currentProduct:param});
+	}
+	
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+			<Dashboard inventoryList={this.state.inventoryList} componentDidMount={this.componentDidMount} setCurrentProduct={this.setCurrentProduct}/>
+			<Form componentDidMount={this.componentDidMount} setCurrentProduct={this.state.setCurrentProduct} currentProduct={this.state.currentProduct}/>
+			
+			<button onClick={()=>console.log(this.state.currentProduct)}> Click me </button>
       </div>
     );
   }
