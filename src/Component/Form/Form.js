@@ -11,18 +11,12 @@ class Form extends Component{
 			currentProduct:this.props.currentProduct
 		}
 		
+		
 	}
 	componentDidUpdate(prevProps, prevState){
 		if(prevProps !== this.props){
 			var {currentProduct} = this.props;
-			if(currentProduct === prevProps.currentProduct){
-				currentProduct=null;
-				
-			}
 			this.setState({
-				imageURL: this.props.imageURL,
-				productName: this.props.productName,
-				price: this.props.price,
 				currentProduct:currentProduct
 			});
 		}
@@ -61,6 +55,7 @@ class Form extends Component{
 				<input type="text" placeholder="image url" value={imageURL} onChange={(e)=>this.handleChange(e, "imageURL")}/>
 				<input type="text" placeholder="product name" value={productName} onChange={(e)=>this.handleChange(e, "productName")}/>
 				<input type="number" placeholder="price" value={price} onChange={(e)=>this.handleChange(e, "price")}/>
+				<button onClick={()=>console.log(this.state.imageURL)}>state check</button>
 				<button onClick={()=>this.cancel()}>Cancel</button>
 					{
 						this.state.currentProduct ? (<button onClick={()=>this.update()}>Save Changes</button>):

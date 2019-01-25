@@ -33,7 +33,7 @@ class App extends Component {
     return (
       <div className="App">
 			<Dashboard inventoryList={this.state.inventoryList} componentDidMount={this.componentDidMount} setCurrentProduct={this.setCurrentProduct}/>
-			<Form componentDidMount={this.componentDidMount} setCurrentProduct={this.state.setCurrentProduct} currentProduct={this.state.currentProduct}/>
+			<Form componentDidMount={this.componentDidMount} setCurrentProduct={this.setCurrentProduct} currentProduct={this.state.currentProduct}/>
 			
 			<button onClick={()=>console.log(this.state.currentProduct)}> Click me </button>
       </div>
