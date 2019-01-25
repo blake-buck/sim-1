@@ -23,7 +23,9 @@ app.post('/api/product', (req, res) =>{
 
 app.put('/api/product/:id', (req, res) =>{
 	const db = req.app.get('db');
-	db.update_product([req.body.productName,req.body.price,req.body.imageURL,req.params.id]).then(product => res.status(200).json(product)).catch(err => console.log("error at put /api/product/:id",err));
+	console.log(req.body.price);
+	console.log(req.params.id);
+	db.update_product([req.body.productName, req.body.price,req.body.imageURL,req.params.id]).then(product => res.status(200).json(product)).catch(err => console.log("error at put /api/product/:id",err));
 })
 
 app.delete('/api/product/:id', (req, res) =>{

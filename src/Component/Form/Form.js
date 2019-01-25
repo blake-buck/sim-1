@@ -15,10 +15,14 @@ class Form extends Component{
 	}
 	componentDidUpdate(prevProps, prevState){
 		if(prevProps !== this.props){
-			var {currentProduct} = this.props;
-			this.setState({
-				currentProduct:currentProduct
-			});
+			if(this.props.currentProduct){
+				this.setState({
+					currentProduct:this.props.currentProduct.id, 
+					imageURL:this.props.currentProduct.imageurl,
+					productName:this.props.currentProduct.name,
+					price:this.props.currentProduct.price
+				});
+			}
 		}
 	}
 	
@@ -41,9 +45,11 @@ class Form extends Component{
 	
 	update(){
 		var {imageURL, productName, price} = this.state;
-		axios.put(`/api/product/${this.state.currentProduct}`, {imageURL, productName, price}).then( (res) => {
+		console.log(this.state.currentProduct);
+		axios.put(`/api/product/${this.state.currentProduct}`, {productName, price, imageURL}).then( (res) => {
+			console.log(price);
 			this.props.componentDidMount();
-			this.props.setCurrentProduct(null);
+			this.props.setCurrentProduct(null, null);
 			this.cancel();
 		})
 	}
@@ -55,7 +61,6 @@ class Form extends Component{
 				<input type="text" placeholder="image url" value={imageURL} onChange={(e)=>this.handleChange(e, "imageURL")}/>
 				<input type="text" placeholder="product name" value={productName} onChange={(e)=>this.handleChange(e, "productName")}/>
 				<input type="number" placeholder="price" value={price} onChange={(e)=>this.handleChange(e, "price")}/>
-				<button onClick={()=>console.log(this.state.imageURL)}>state check</button>
 				<button onClick={()=>this.cancel()}>Cancel</button>
 					{
 						this.state.currentProduct ? (<button onClick={()=>this.update()}>Save Changes</button>):

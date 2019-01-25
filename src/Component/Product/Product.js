@@ -7,7 +7,7 @@ function Product(props){
 			<p>{props.price}</p>
 			<img src={props.imageURL} alt={props.imageURL} />
 			<button onClick={()=>{props.deleteProduct(props.id)}}>Delete</button>
-			<button onClick={()=>{props.setCurrentProduct(props.id)}}>Edit</button>
+			<button onClick={()=>{props.setCurrentProduct(props.id, props.position);}}>Edit</button>
 		</div>
 	)
 	

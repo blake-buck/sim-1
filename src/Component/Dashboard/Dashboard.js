@@ -24,7 +24,7 @@ class Dashboard extends Component{
 				this.props.inventoryList.map( (val, i) => {
 					return(		
 						<Product key={i} name={val.name} price={val.price} imageURL={val.imageurl} deleteProduct={this.deleteProduct} id={val.id} 
-						setCurrentProduct={this.props.setCurrentProduct}
+						position={i} setCurrentProduct={this.props.setCurrentProduct}
 						/>
 					)
 				})

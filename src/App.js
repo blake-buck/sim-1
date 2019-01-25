@@ -21,12 +21,15 @@ class App extends Component {
 	}
 	componentDidMount(){
 		axios.get('/api/inventory').then( (res) =>{
+			console.log(res.data);
 			this.setState({inventoryList:res.data});
 		})
 	}
 	
-	setCurrentProduct(param){
-		this.setState({currentProduct:param});
+	setCurrentProduct(param, position){
+		var placeholder = this.state.inventoryList[position];
+		console.log(placeholder);
+		this.setState({currentProduct:placeholder});
 	}
 	
   render() {
@@ -35,7 +38,6 @@ class App extends Component {
 			<Dashboard inventoryList={this.state.inventoryList} componentDidMount={this.componentDidMount} setCurrentProduct={this.setCurrentProduct}/>
 			<Form componentDidMount={this.componentDidMount} setCurrentProduct={this.setCurrentProduct} currentProduct={this.state.currentProduct}/>
 			
-			<button onClick={()=>console.log(this.state.currentProduct)}> Click me </button>
       </div>
     );
   }
